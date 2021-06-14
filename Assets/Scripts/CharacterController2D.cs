@@ -12,34 +12,40 @@ public class CharacterController2D : MonoBehaviour
 	private GameManager_ _manager; // Make sure GameManager is set up in the scene
 
     #region PLAYER_MOVEMENT
-    // ========= PLAYER STATE ========== //
 	// ========= MOVEMENT ========== //
 	[Header("Movement Settings")]
 	public bool EnableMovement = true;
 
 	private float _moveInput = 0;
     [ConditionalHide("EnableMovement", true)]
-    [Range(0, 3)] public float MoveSpeed;
+	[Tooltip("The speed at which the player moves horitontally")]
+	[Range(0, 3)] public float MoveSpeed;
 
 	[ConditionalHide("EnableMovement", true)]
+	[Tooltip("The acceleration of the player (speed smoothing)")]
 	[Range(0, 0.3f)] public float MovementSmoothing = .05f;
 
 	// ========= GROUND & AIR STATE ========== //
 	[Header("Ground & Air check")]
 
 	[ConditionalHide("EnableMovement", true)]
+	[Tooltip("Can the player move whilst in the air?")]
 	public bool AirControl = true;
 
 	[ConditionalHide("EnableMovement", true)]
+	[Tooltip("Which object layer will the player collide with?")]
 	public LayerMask ObstacleLayer;
 
 	[ConditionalHide("EnableMovement", true)]
+	[Tooltip("The feet position of the player, where raycast will detect collision for ground.")]
 	public Transform GroundCheckPosition;
 
 	[ConditionalHide("EnableMovement", true)]
+	[Tooltip("The head position of the player, where raycast will detect collision for ceil.")]
 	public Transform CeilingCheckPosition;
 
 	[ConditionalHide("EnableMovement", true)]
+	[Tooltip("The radius of raycast checking, the smaller the more accurate.")]
 	public float ObstacleCheckRadius = .2f;
 
 	private bool _isGrounded;
@@ -55,12 +61,15 @@ public class CharacterController2D : MonoBehaviour
 	public bool EnableJumping = true;
 
 	[ConditionalHide("EnableJumping", true)]
-	public float JumpForce = 20f;
+	[Tooltip("The magnitude of the force to propel the player upward.")]
+	[Range(10f, 100f)] public float JumpForce = 20f;
 
 	[ConditionalHide("EnableJumping", true)]
+	[Tooltip("After this amount of time, the player will have to descend.")]
 	public float MaxJumpTime = 1f;
 
 	[ConditionalHide("EnableJumping", true)]
+	[Tooltip("After jumping this height, the player will have to descend.")]
 	public float MaxJumpHeight = 3f;
 
 	private float _jumpTimeCounter = 0f;
@@ -75,24 +84,31 @@ public class CharacterController2D : MonoBehaviour
 	public bool EnableWallClimbing = true;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("The radius of wall checking, the smaller the more accurate.")]
 	public float WallCheckRadius = .2f;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("Side position of the player, where raycast will detect whether you have touched the wall")]
 	public Transform WallCheckPosition;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("The down sliding speed while you are grabbing onto walls")]
 	public float WallSlidingSpeed;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("After this time, the player will start descending.")]
 	public float MaxWallJumpTime;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("Horizontal force applied to jumping against walls")]
 	public float WallForceJumpX;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("Vertical force applied to jumping against walls")]
 	public float WallForceJumpY;
 
 	[ConditionalHide("EnableWallClimbing", true)]
+	[Tooltip("Which object layer will define 'wall'? (May be same as Obstacle layer)")]
 	public LayerMask WallLayer;
 
 	private bool _isTouchingFront;
@@ -109,10 +125,13 @@ public class CharacterController2D : MonoBehaviour
 	public bool EnableDashing = true;
 
 	[ConditionalHide("EnableDashing", true)]
+	[Tooltip("The force to propel the player in the direction he is moving")]
 	public float DashPower;
 	[ConditionalHide("EnableDashing", true)]
+	[Tooltip("In this amount of time after dashing, the player cannot continue dashing")]
 	public float DashDelay;
 	[ConditionalHide("EnableDashing", true)]
+	[Tooltip("The shadows effect of the player, should be a GameObject containing child transforms with each player shadow")]
 	public GameObject DashEffect;
 
 	private bool _canDash = true;
@@ -125,8 +144,10 @@ public class CharacterController2D : MonoBehaviour
 	public bool EnableLadderClimbing = true;
 
 	[ConditionalHide("EnableLadderClimbing", true)]
+	[Tooltip("The vertical speed of the player whilst on ladder objects")]
 	public float ClimbingSpeed;
 	[ConditionalHide("EnableLadderClimbing", true)]
+	[Tooltip("Which object layer will define 'Ladder'")]
 	public LayerMask LadderLayer;
 
 	private bool _isClimbing;
@@ -136,6 +157,7 @@ public class CharacterController2D : MonoBehaviour
     #region PARTICLE_EFFECT
     // ========= PARTICLE EFFECT ========== //
     [Header("Particle Effect")]
+	[Tooltip("Particle spawned while moving or jumping")]
 	public ParticleSystem MoveParticleFeet;
     #endregion
 
